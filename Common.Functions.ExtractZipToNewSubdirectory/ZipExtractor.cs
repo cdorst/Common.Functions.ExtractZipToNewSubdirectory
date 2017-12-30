@@ -1,5 +1,4 @@
-﻿using System;
-using static System.IO.Path;
+﻿using static Common.Functions.ExtractZipToNewSubdirectory.SubdirectoryNamer;
 using static System.IO.Compression.ZipFile;
 
 namespace Common.Functions.ExtractZipToNewSubdirectory
@@ -8,17 +7,9 @@ namespace Common.Functions.ExtractZipToNewSubdirectory
     {
         public static string Extract(string zipAbsolutePath)
         {
-            var extractTo = GetNewSubdirectoryPath(zipAbsolutePath);
+            var extractTo = Subdirectory(zipAbsolutePath);
             ExtractToDirectory(zipAbsolutePath, extractTo);
             return extractTo;
         }
-
-        private static string GetNewSubdirectoryPath(string filePath)
-            => Combine(
-                GetDirectoryName(filePath),
-                GetLast12CharsFromRandomGuid());
-
-        private static string GetLast12CharsFromRandomGuid()
-            => Guid.NewGuid().ToString().Substring(24);
     }
 }
